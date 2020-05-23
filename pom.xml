@@ -6,10 +6,6 @@
 	<artifactId>MavenDemo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<properties>
-		<SuiteXmlFile>testng.xml</SuiteXmlFile>
-	</properties>
-
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -28,13 +24,55 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>3.0.0-M4</version>
+					<configuration>
+						<suiteXmlFiles>
+							<suiteXmlFile>TestNG.xml</suiteXmlFile>
+						</suiteXmlFiles>
+						<argLine>
+							-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+						</argLine>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.aspectj</groupId>
+							<artifactId>aspectjweaver</artifactId>
+							<version>${aspectj.version}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
-
 			</plugins>
 		</pluginManagement>
 	</build>
 
+	<properties>
+		<aspectj.version>1.9.5</aspectj.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<reporting>
+		<excludeDefaults>true</excludeDefaults>
+		<plugins>
+			<plugin>
+				<groupId>io.qameta.allure</groupId>
+				<artifactId>allure-maven</artifactId>
+				<version>2.9</version>
+			</plugin>
+		</plugins>
+	</reporting>
+
 	<dependencies>
+
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-testng</artifactId>
+			<version>2.13.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.9.5</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.testng</groupId>
